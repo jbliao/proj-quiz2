@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/csv"
 	"encoding/json"
+	"flag"
 	"os"
 	"strconv"
 	"strings"
@@ -32,7 +33,13 @@ func readCSV(name string) ([][]string, error) {
 }
 
 func main() {
-	matrix, err := readCSV("./test.csv")
+
+	filename := "test.csv"
+	flag.Parse()
+	if len(flag.Args()) >= 1 {
+		filename = flag.Arg(0)
+	}
+	matrix, err := readCSV(filename)
 	if err != nil {
 		panic(err)
 	}
